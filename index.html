@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Simply</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.65)',
+                            dark: 'rgba(15, 23, 42, 0.65)',
+                            border: 'rgba(255, 255, 255, 0.3)',
+                            borderDark: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    backdropBlur: {
+                        'xs': '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Liquid Glass Design System */
+        :root {
+            --glass-blur: 16px;
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            /* Prevent body scroll, handle in containers */
+        }
+
+        /* Animated Mesh Gradient Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+                radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        .light .mesh-bg {
+            background: radial-gradient(at 0% 0%, hsla(192, 90%, 90%, 1) 0, transparent 50%),
+                radial-gradient(at 50% 0%, hsla(260, 80%, 90%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(340, 80%, 90%, 1) 0, transparent 50%);
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Glass Component Class */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .dark .glass-panel {
+            background: rgba(17, 25, 40, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.8);
+        }
+
+        /* Typography & Utilities */
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="text-slate-800 dark:text-slate-100 transition-colors duration-500">
+
+    <!-- Background -->
+    <div class="mesh-bg"></div>
+
+    <!-- App Shell -->
+    <div class="h-screen flex flex-col p-4 md:p-6 gap-4 md:gap-6 max-w-7xl mx-auto">
+
+        <!-- Header (Glass Bar) -->
+        <header class="glass-panel rounded-2xl px-6 py-4 flex items-center justify-between shrink-0 z-20">
+            <!-- Mode Pill -->
+            <div class="relative">
+                <button onclick="document.getElementById('mode-dropdown').classList.toggle('hidden')"
+                    class="glass-panel px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white/50 dark:hover:bg-black/20 transition-all relative">
+                    <span id="current-mode-icon">🌱</span>
+                    <span id="current-theme-icon">👨‍🍳</span>
+                    <span class="font-medium text-sm">Persona</span>
+                    <svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <!-- Dropdown -->
+                <div id="mode-dropdown"
+                    class="absolute top-full left-0 mt-2 w-48 glass-panel rounded-xl hidden overflow-hidden z-50 flex flex-col">
+                    <button onclick="app.setMode('seed')"
+                        class="w-full text-left px-4 py-3 hover:bg-white/50 dark:hover:bg-white/10 flex items-center gap-3 transition-colors">
+                        <span class="text-xl">🌱</span>
+                        <div>
+                            <div class="font-bold text-sm">Seed</div>
+                            <div class="text-xs opacity-60">Beginner</div>
+                        </div>
+                    </button>
+                    <button onclick="app.setMode('grower')"
+                        class="w-full text-left px-4 py-3 hover:bg-white/50 dark:hover:bg-white/10 flex items-center gap-3 transition-colors border-t border-white/10">
+                        <span class="text-xl">🌳</span>
+                        <div>
+                            <div class="font-bold text-sm">Grower</div>
+                            <div class="text-xs opacity-60">Intermediate</div>
+                        </div>
+                    </button>
+                    <button onclick="app.setMode('forester')"
+                        class="w-full text-left px-4 py-3 hover:bg-white/50 dark:hover:bg-white/10 flex items-center gap-3 transition-colors border-t border-white/10">
+                        <span class="text-xl">🌲</span>
+                        <div>
+                            <div class="font-bold text-sm">Forester</div>
+                            <div class="text-xs opacity-60">Advanced</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Theme Toggle -->
+            <button onclick="app.toggleTheme()"
+                class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-white/50 dark:hover:bg-black/20 transition-all">
+                <span id="theme-icon">🌓</span>
+            </button>
+
+            <!-- Mobile Menu Button -->
+            <button onclick="app.toggleMobileMenu()"
+                class="md:hidden w-10 h-10 glass-panel rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Main Content Area (Split View) -->
+        <div class="flex-1 flex gap-6 overflow-hidden relative">
+
+            <!-- Sidebar (Desktop) -->
+            <aside id="sidebar"
+                class="hidden md:flex w-72 glass-panel rounded-2xl flex-col overflow-hidden transition-all duration-300">
+                <div class="p-5 border-b border-white/20 dark:border-white/5">
+                    <h3 class="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">Curriculum</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-medium opacity-70">Progress</span>
+                        <span id="sidebar-score" class="text-xs font-bold text-blue-600 dark:text-blue-400">0%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full mt-2 overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-blue-500 rounded-full transition-all duration-500"
+                            style="width: 0%"></div>
+                    </div>
+                </div>
+                <nav id="chapter-list" class="flex-1 overflow-y-auto p-3 space-y-1"></nav>
+                <div class="p-4 border-t border-white/20 dark:border-white/5">
+                    <button onclick="app.startGlobalQuiz()"
+                        class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-blue-500/30 transition-all transform hover:scale-[1.02] active:scale-95 text-sm">
+                        Check Knowledge 🧠
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Content View -->
+            <main id="main-container" class="flex-1 glass-panel rounded-2xl overflow-hidden flex flex-col relative">
+
+                <!-- Page Content -->
+                <div id="content-area" class="flex-1 overflow-y-auto p-6 md:p-10 scroll-smooth">
+                    <!-- Dynamic Content Injected Here -->
+                </div>
+
+                <!-- Pagination / Footer -->
+                <div
+                    class="p-4 md:p-6 border-t border-white/20 dark:border-white/5 flex justify-between items-center bg-white/30 dark:bg-black/20 backdrop-blur-md">
+                    <button id="prev-btn" onclick="app.prevPage()"
+                        class="px-5 py-2.5 rounded-xl font-medium hover:bg-white/40 dark:hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
+                        <span>←</span> Back
+                    </button>
+
+                    <div id="page-dots" class="flex gap-1.5"></div>
+
+                    <button id="next-btn" onclick="app.nextPage()"
+                        class="px-6 py-2.5 bg-slate-800 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                        Next <span>→</span>
+                    </button>
+                </div>
+
+                <!-- FAB (Share) -->
+                <button onclick="app.openShareModal()"
+                    class="absolute bottom-24 right-6 md:bottom-8 md:right-8 w-14 h-14 bg-blue-500 rounded-full shadow-lg shadow-blue-500/40 flex items-center justify-center text-white hover:scale-110 transition-transform z-10">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                </button>
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
+        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" onclick="app.toggleMobileMenu()"></div>
+        <div class="absolute bottom-0 left-0 right-0 glass-panel rounded-t-3xl p-6 animate-slide-up">
+            <div class="flex flex-col gap-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-lg">Menu</h3>
+                    <button onclick="app.toggleMobileMenu()"
+                        class="p-2 bg-gray-100 dark:bg-gray-800 rounded-full">✕</button>
+                </div>
+                <button onclick="app.openThemeModal()"
+                    class="p-4 bg-white/50 dark:bg-black/30 rounded-2xl flex items-center gap-4">
+                    <span class="text-2xl">🎭</span>
+                    <div class="text-left">
+                        <div class="font-bold">Change Persona</div>
+                        <div class="text-xs opacity-60">Current: <span id="mobile-persona-text">Chef</span></div>
+                    </div>
+                </button>
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="app.setMode('seed')"
+                        class="p-3 bg-white/50 dark:bg-black/30 rounded-xl flex flex-col items-center gap-1">
+                        <span class="text-2xl">🌱</span>
+                        <span class="text-xs font-bold">Seed</span>
+                    </button>
+                    <button onclick="app.setMode('grower')"
+                        class="p-3 bg-white/50 dark:bg-black/30 rounded-xl flex flex-col items-center gap-1">
+                        <span class="text-2xl">🌳</span>
+                        <span class="text-xs font-bold">Grower</span>
+                    </button>
+                    <button onclick="app.setMode('forester')"
+                        class="p-3 bg-white/50 dark:bg-black/30 rounded-xl flex flex-col items-center gap-1">
+                        <span class="text-2xl">🌲</span>
+                        <span class="text-xs font-bold">Forester</span>
+                    </button>
+                </div>
+                <button onclick="app.startGlobalQuiz()"
+                    class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg text-sm">
+                    Check Knowledge 🧠
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Modal -->
+    <div id="onboarding-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-md"></div>
+        <div
+            class="glass-panel rounded-3xl p-8 max-w-4xl w-full relative z-10 max-h-[90vh] overflow-y-auto animate-scale-in">
+
+            <!-- Step 1 -->
+            <div id="onboarding-step-1">
+                <div class="text-center mb-10">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                        Choose Your Guide</h2>
+                    <p class="text-lg opacity-70">Learn AI through the lens of your passion.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <!-- Personas injected by JS or hardcoded for speed -->
+                    <button onclick="app.setTheme('chef')"
+                        class="p-6 rounded-2xl bg-white/40 dark:bg-white/5 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/50 transition-all group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">👨‍🍳
+                        </div>
+                        <div class="font-bold">The Chef</div>
+                        <div class="text-xs opacity-60 mt-1">Cooking Analogies</div>
+                    </button>
+                    <button onclick="app.setTheme('gardener')"
+                        class="p-6 rounded-2xl bg-white/40 dark:bg-white/5 hover:bg-green-500/10 border border-transparent hover:border-green-500/50 transition-all group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🌻
+                        </div>
+                        <div class="font-bold">The Gardener</div>
+                        <div class="text-xs opacity-60 mt-1">Plant Analogies</div>
+                    </button>
+                    <button onclick="app.setTheme('musician')"
+                        class="p-6 rounded-2xl bg-white/40 dark:bg-white/5 hover:bg-purple-500/10 border border-transparent hover:border-purple-500/50 transition-all group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🎷
+                        </div>
+                        <div class="font-bold">The Musician</div>
+                        <div class="text-xs opacity-60 mt-1">Music Analogies</div>
+                    </button>
+                    <button onclick="app.setTheme('architect')"
+                        class="p-6 rounded-2xl bg-white/40 dark:bg-white/5 hover:bg-orange-500/10 border border-transparent hover:border-orange-500/50 transition-all group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🏗️
+                        </div>
+                        <div class="font-bold">The Architect</div>
+                        <div class="text-xs opacity-60 mt-1">Building Analogies</div>
+                    </button>
+                    <button onclick="app.setTheme('explorer')"
+                        class="p-6 rounded-2xl bg-white/40 dark:bg-white/5 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/50 transition-all group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🗺️
+                        </div>
+                        <div class="font-bold">The Explorer</div>
+                        <div class="text-xs opacity-60 mt-1">Map Analogies</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="onboarding-step-2" class="hidden">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Select Difficulty</h2>
+                    <p class="text-lg opacity-70">Where would you like to start?</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <button onclick="app.setMode('seed')"
+                        class="p-8 rounded-3xl bg-white/40 dark:bg-white/5 hover:bg-green-500/10 border border-transparent hover:border-green-500/50 transition-all text-center">
+                        <div class="text-6xl mb-4">🌱</div>
+                        <div id="modal-mode-seed-title" class="text-2xl font-bold mb-2">Beginner
+                        </div>
+                        <p class="opacity-60 text-sm">I'm new to AI. Explain it like I'm 5.</p>
+                    </button>
+                    <button onclick="app.setMode('grower')"
+                        class="p-8 rounded-3xl bg-white/40 dark:bg-white/5 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/50 transition-all text-center">
+                        <div class="text-6xl mb-4">🌳</div>
+                        <div id="modal-mode-grower-title" class="text-2xl font-bold mb-2">
+                            Intermediate</div>
+                        <p class="opacity-60 text-sm">I know the basics. Show me how it works.</p>
+                    </button>
+                    <button onclick="app.setMode('forester')"
+                        class="p-8 rounded-3xl bg-white/40 dark:bg-white/5 hover:bg-purple-500/10 border border-transparent hover:border-purple-500/50 transition-all text-center">
+                        <div class="text-6xl mb-4">🌲</div>
+                        <div id="modal-mode-forester-title" class="text-2xl font-bold mb-2">Advanced
+                        </div>
+                        <p class="opacity-60 text-sm">I'm technical. Let's talk architecture.</p>
+                    </button>
+                </div>
+                <button onclick="app.backToStep1()" class="mt-8 w-full text-center opacity-50 hover:opacity-100">← Back
+                    to Personas</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+        <div class="glass-panel rounded-3xl p-8 max-w-lg w-full relative z-10 animate-scale-in">
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200/20">
+                <div id="quiz-timer-bar" class="h-full bg-blue-500 transition-all duration-1000 ease-linear"
+                    style="width: 100%"></div>
+            </div>
+            <div id="quiz-content" class="mt-4"></div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onclick="document.getElementById('share-modal').classList.add('hidden')"></div>
+        <div class="glass-panel rounded-3xl p-8 max-w-md w-full relative z-10 animate-scale-in text-center">
+            <h3 class="text-2xl font-bold mb-2">Share Progress</h3>
+            <p class="opacity-70 mb-6">Share what you're learning with your network.</p>
+
+            <div id="share-text" class="hidden"></div>
+
+            <div class="space-y-3">
+                <button onclick="app.shareToLinkedIn()"
+                    class="w-full py-3 bg-[#0077b5] text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                    Share on LinkedIn
+                </button>
+                <button onclick="app.copyShareText()"
+                    class="w-full py-3 bg-gray-100 dark:bg-white/10 rounded-xl font-bold hover:bg-gray-200 dark:hover:bg-white/20 transition-colors">
+                    Copy Link
+                </button>
+            </div>
+            <button onclick="document.getElementById('share-modal').classList.add('hidden')"
+                class="mt-6 text-sm opacity-50 hover:opacity-100">Close</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
