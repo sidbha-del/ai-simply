@@ -283,26 +283,51 @@ const app = {
         const container = document.getElementById('content-view');
 
         container.innerHTML = `
-            <div class="max-w-3xl mx-auto text-center mt-10 animate-fade-in">
-                <h2 class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">Learning AI, Naturally.</h2>
-                <p class="text-xl text-gray-600 mb-10 leading-relaxed">Choose a persona to translate complex AI concepts into language you already understand.</p>
+            <div class="max-w-4xl mx-auto text-center mt-4 md:mt-10 animate-fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">Learning AI, Naturally.</h2>
+                <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">Choose your guide and learning path to get started.</p>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <button onclick="app.setMode('seed')" class="p-6 rounded-3xl bg-white/40 hover:bg-white/60 border border-white/50 transition-all hover:scale-105 group text-left">
-                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform origin-left">🌱</div>
-                        <h3 class="font-bold text-lg">${theme.modes.seed}</h3>
-                        <p class="text-sm opacity-60">Beginner</p>
-                    </button>
-                    <button onclick="app.setMode('grower')" class="p-6 rounded-3xl bg-white/40 hover:bg-white/60 border border-white/50 transition-all hover:scale-105 group text-left">
-                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform origin-left">🌳</div>
-                        <h3 class="font-bold text-lg">${theme.modes.grower}</h3>
-                        <p class="text-sm opacity-60">Intermediate</p>
-                    </button>
-                    <button onclick="app.setMode('forester')" class="p-6 rounded-3xl bg-white/40 hover:bg-white/60 border border-white/50 transition-all hover:scale-105 group text-left">
-                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform origin-left">🌲</div>
-                        <h3 class="font-bold text-lg">${theme.modes.forester}</h3>
-                        <p class="text-sm opacity-60">Advanced</p>
-                    </button>
+                <!-- Persona Selection -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
+                        <span>👤</span> Choose Your Guide
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+                        ${Object.keys(themes).map(id => {
+            const t = themes[id];
+            return `
+                                <button onclick="app.selectPersona('${id}')" 
+                                    class="p-4 rounded-2xl transition-all ${this.currentTheme === id ? 'bg-purple-600 text-white shadow-lg scale-105 ring-2 ring-purple-400' : 'bg-white/40 hover:bg-white/60 border border-white/50 hover:scale-105'}">
+                                    <div class="text-3xl mb-2">${t.icon}</div>
+                                    <div class="text-sm font-bold ${this.currentTheme === id ? 'text-white' : 'text-gray-800'}">${t.name.replace(t.icon, '').trim()}</div>
+                                </button>
+                            `;
+        }).join('')}
+                    </div>
+                </div>
+
+                <!-- Mode Selection -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
+                        <span>🎯</span> Choose Your Path
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        <button onclick="app.setMode('seed')" class="p-6 rounded-3xl bg-white/40 hover:bg-white/60 border border-white/50 transition-all hover:scale-105 group text-left">
+                            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform origin-left">🌱</div>
+                            <h3 class="font-bold text-lg">${theme.modes.seed}</h3>
+                            <p class="text-sm opacity-60">Beginner</p>
+                        </button>
+                        <button onclick="app.setMode('grower')" class="p-6 rounded-3xl bg-white/40 hover:bg-white/60 border border-white/50 transition-all hover:scale-105 group text-left">
+                            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform origin-left">🌳</div>
+                            <h3 class="font-bold text-lg">${theme.modes.grower}</h3>
+                            <p class="text-sm opacity-60">Intermediate</p>
+                        </button>
+                        <button onclick="app.setMode('forester')" class="p-6 rounded-3xl bg-white/40 hover:bg-white/60 border border-white/50 transition-all hover:scale-105 group text-left">
+                            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform origin-left">🌲</div>
+                            <h3 class="font-bold text-lg">${theme.modes.forester}</h3>
+                            <p class="text-sm opacity-60">Advanced</p>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
