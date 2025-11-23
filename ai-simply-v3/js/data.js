@@ -351,8 +351,8 @@ const courseData = {
                         {
                             title: "Weights and Biases",
                             content: [
-                                { type: "text", text: "How does the network learn? Through **Weights and Biases**. Imagine the **{{entity}}** has a recipe book where some ingredients are written in bold (high weight) and others in faint pencil (low weight)." },
-                                { type: "text", text: "During training, if the **{{entity}}** makes a mistake (e.g., puts salt in a cake), the 'weight' of the salt connection is lowered. If they get it right, the weight is increased. Over billions of tries, these weights are tuned to perfection." },
+                                { type: "text", text: "How does the network learn? Through **Weights and Biases**. Imagine the **{{entity}}** has a reference guide where some elements are marked as critical (high weight) and others as minor (low weight)." },
+                                { type: "text", text: "During training, if the **{{entity}}** makes a mistake (e.g., emphasizes the wrong aspect), the 'weight' of that connection is lowered. If they get it right, the weight is increased. Over billions of tries, these weights are tuned to perfection." },
                                 { type: "analogy", title: "Tuning the Radio", text: "Training is like tuning a radio. You adjust the dials (weights) until the static disappears and you hear the music (correct output) clearly." }
                             ]
                         },
@@ -373,7 +373,7 @@ const courseData = {
                             content: [
                                 { type: "text", text: "A base model is like a generic **{{entity}}** who knows a little bit about everything. But sometimes you need a specialist. This is where **Fine-Tuning** comes in." },
                                 { type: "text", text: "Fine-tuning is the process of taking a pre-trained model and training it further on a specific dataset. For example, you might train a general model on medical textbooks to create a 'Medical Assistant' model." },
-                                { type: "analogy", title: "The Specialist", text: "It's like sending a general **{{entity}}** to a specialized pastry school. They already know how to **{{action}}**, but now they become an expert in croissants." }
+                                { type: "analogy", title: "The Specialist", text: "It's like sending a general **{{entity}}** to a specialized advanced training program. They already know how to **{{action}}**, but now they become an expert in a specific niche." }
                             ]
                         },
                         {
@@ -401,7 +401,7 @@ const courseData = {
                             content: [
                                 { type: "text", text: "You can control how creative or predictable the **{{entity}}** is using parameters like **Temperature**. Temperature is a setting that controls the randomness of the output." },
                                 { type: "text", text: "Low Temperature (e.g., 0.2) makes the model very focused and deterministic. It picks the most likely next word every time. High Temperature (e.g., 0.8) allows it to take risks and pick less likely words." },
-                                { type: "analogy", title: "The Spice Level", text: "Low temp is a safe, standard recipe. High temp is the **{{entity}}** experimenting with exotic spices. Too high, and the dish might be inedible (gibberish)." }
+                                { type: "analogy", title: "The Creativity Level", text: "Low temp is a safe, standard approach. High temp is the **{{entity}}** experimenting with unusual combinations. Too high, and the **{{creation}}** might be nonsensical (gibberish)." }
                             ]
                         },
                         {
@@ -427,9 +427,9 @@ const courseData = {
                         {
                             title: "Garbage In, Garbage Out",
                             content: [
-                                { type: "text", text: "An AI is only as good as the data it was trained on. If you train a **{{entity}}** only on recipes from one country, they won't know how to **{{action}}** dishes from anywhere else. This is the principle of 'Garbage In, Garbage Out'." },
+                                { type: "text", text: "An AI is only as good as the data it was trained on. If you train a **{{entity}}** only on examples from one domain, they won't know how to **{{action}}** in other contexts. This is the principle of 'Garbage In, Garbage Out'." },
                                 { type: "text", text: "LLMs are trained on the internet, which contains both human knowledge and human prejudice. If the training data contains biased viewpoints, the model will likely reproduce them." },
-                                { type: "analogy", title: "The Biased Cookbook", text: "If every recipe book you read says that salt is bad, you will never use salt, even when a dish needs it. The **{{entity}}** inherits the biases of its library." }
+                                { type: "analogy", title: "The Biased Reference Library", text: "If every reference you read says a certain approach is wrong, you will never use it, even when it's needed. The **{{entity}}** inherits the biases of its training sources." }
                             ]
                         },
                         {
@@ -456,7 +456,7 @@ const courseData = {
                             content: [
                                 { type: "text", text: "How do we know if an LLM is 'smart'? We can't just give it an IQ test. Instead, we use **Benchmarks**. These are standardized tests designed to measure specific capabilities like coding, math, or reasoning." },
                                 { type: "text", text: "Common benchmarks include MMLU (general knowledge) and HumanEval (coding). Scores on these tests allow us to compare different models." },
-                                { type: "analogy", title: "The Taste Test", text: "It's like a blind taste test for our **{{entity}}**. Judges rate the **{{creation}}** on presentation, flavor, and technique to see who is the best." }
+                                { type: "analogy", title: "The Quality Assessment", text: "It's like a standardized evaluation for our **{{entity}}**. Judges rate the **{{creation}}** on multiple criteria like quality, accuracy, and execution to determine performance." }
                             ]
                         },
                         {
