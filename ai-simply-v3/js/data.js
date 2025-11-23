@@ -16,7 +16,7 @@ const themes = {
         zeroshot_example: "Simply ask the Chef 'Make me a burger' without showing any photos.",
         oneshot_example: "Show the Chef one photo of a burger and say 'Make this'.",
         multishot_example: "Show the Chef 3 photos of different burgers to explain exactly the style you want.",
-        hallucination_analogy: "inventing a dish that can't exist",
+        hallucination_analogy: "inventing a fruit that doesn't exist",
         modes: {
             seed: "Home Cook 🍳",
             grower: "Sous Chef 👨‍🍳",
@@ -344,7 +344,7 @@ const courseData = {
                             title: "The Brain of the Operation",
                             content: [
                                 { type: "text", text: "In the Seed mode, we learned that an LLM is like a **{{entity}}**. Now, let's look inside their brain. The brain of an AI is called a **Neural Network**. It's inspired by the human brain, consisting of layers of interconnected nodes (neurons)." },
-                                { type: "text", text: "Think of these nodes as a team of assistants in the **{{tool}}**. Each one handles a tiny, specific task. One might check for grammar, another for tone, and another for factual consistency. They pass information to each other, refining the **{{creation}}** at every step." },
+                                { type: "text", text: "Think of these nodes as a team of sous-chefs in the **{{tool}}**. Each one handles a tiny, specific task. One might check for grammar, another for tone, and another for factual consistency. They pass information to each other, refining the **{{creation}}** at every step." },
                                 { type: "text", text: "Deep Learning is simply a neural network with many, many layers. The more layers (depth), the more complex patterns the **{{entity}}** can understand. This is what allows them to grasp nuance, humor, and sarcasm." }
                             ]
                         },
@@ -614,7 +614,7 @@ const courseData = {
                             title: "Multi-Head Attention",
                             content: [
                                 { type: "text", text: "Modern Transformers use **Multi-Head Attention**. This means the model runs multiple attention calculations at once. One 'head' might focus on grammar, another on vocabulary, and another on context." },
-                                { type: "analogy", title: "The Team of Specialists", text: "It's like having multiple assistants working on the same **{{creation}}**. One focuses on one aspect, another on a different detail, and another checks consistency. Together, they ensure nothing is missed." }
+                                { type: "analogy", title: "The Kitchen Brigade", text: "It's like having multiple sous-chefs watching the same pot. One watches the temperature, one tastes for salt, one checks the texture. Together, they ensure nothing is missed." }
                             ]
                         },
                         {
