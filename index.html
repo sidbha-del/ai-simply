@@ -4,87 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Simply - Project Versions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>AI Simply - Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url=./ai-simply-v3/index.html">
     <style>
         body {
-            background: #0f172a;
-            background-image:
-                radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-                radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-                radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        .loader {
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        a {
+            color: white;
+            text-decoration: underline;
         }
     </style>
 </head>
 
-<body class="min-h-screen text-white flex flex-col items-center justify-center p-8">
-
-    <div class="max-w-4xl w-full">
-        <header class="text-center mb-16">
-            <h1
-                class="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
-                AI Simply
-            </h1>
-            <p class="text-slate-400 text-xl">Project Version History & Prototypes</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <!-- Version 1 -->
-            <a href="ai-simply-v1/index.html"
-                class="group relative block bg-slate-800/50 rounded-3xl p-8 border border-slate-700 hover:border-slate-500 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-900/20">
-                <div class="absolute top-4 right-4 text-slate-600 font-mono text-xs">v1.0</div>
-                <div
-                    class="h-12 w-12 bg-slate-700 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    📜
-                </div>
-                <h2 class="text-2xl font-bold mb-2 text-slate-200">Legacy</h2>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    The original implementation. Basic structure and content foundation.
-                </p>
-            </a>
-
-            <!-- Version 2 -->
-            <a href="ai-simply-v2/index.html"
-                class="group relative block bg-slate-800/50 rounded-3xl p-8 border border-slate-700 hover:border-slate-500 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-900/20">
-                <div class="absolute top-4 right-4 text-purple-400 font-mono text-xs">v2.0</div>
-                <div
-                    class="h-12 w-12 bg-purple-900/30 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    🧊
-                </div>
-                <h2 class="text-2xl font-bold mb-2 text-purple-200">Liquid Glass</h2>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Experimental "Bento Box" design with glassmorphism effects.
-                </p>
-            </a>
-
-            <!-- Version 3 -->
-            <a href="ai-simply-v3/index.html"
-                class="group relative block bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 border border-blue-500/50 hover:border-blue-400 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 ring-1 ring-blue-500/20">
-                <div
-                    class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-2xl">
-                    LATEST</div>
-                <div
-                    class="h-12 w-12 bg-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-blue-600/30">
-                    ✨
-                </div>
-                <h2 class="text-2xl font-bold mb-2 text-white">Organic Flow</h2>
-                <p class="text-blue-200/70 text-sm leading-relaxed">
-                    The polished, production-ready version. Features persona modes, quizzes, and organic animations.
-                </p>
-                <div
-                    class="mt-6 flex items-center gap-2 text-blue-400 text-sm font-bold group-hover:gap-3 transition-all">
-                    Launch App <span>→</span>
-                </div>
-            </a>
-
-        </div>
-
-        <footer class="text-center mt-16 text-slate-600 text-sm">
-            &copy; 2025 AI Simply Monorepo
-        </footer>
+<body>
+    <div class="loader">
+        <div class="spinner"></div>
+        <h2>Redirecting to AI Simply...</h2>
+        <p>If you're not redirected, <a href="./ai-simply-v3/index.html">click here</a>.</p>
+        <p style="margin-top: 30px; opacity: 0.7; font-size: 0.9em;">
+            <a href="./hub.html">View all versions</a>
+        </p>
     </div>
-
 </body>
 
 </html>
